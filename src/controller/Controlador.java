@@ -30,6 +30,7 @@ public class Controlador implements ActionListener {
 		mi_interfaz.boton6.addActionListener(this);
 		mi_interfaz.boton7.addActionListener(this);
 		mi_interfaz.boton8.addActionListener(this);
+		mi_interfaz.botonReset.addActionListener(this);
 	}
 	public char logica(byte jugador,int posicion,JButton boton) {
 		char resultado = mi_juego.marcar(posicion, jugador);
@@ -45,7 +46,6 @@ public class Controlador implements ActionListener {
 			this.jugador=1;
 			mi_juego.inicializar();
 			mi_interfaz.setTitle("Turno de jugador : "+jugador);
-			mi_interfaz.turno.setText(""+jugador);
 			mi_interfaz.boton0.setText(" ");
 			mi_interfaz.boton1.setText(" ");
 			mi_interfaz.boton2.setText(" ");
@@ -55,6 +55,7 @@ public class Controlador implements ActionListener {
 			mi_interfaz.boton6.setText(" ");
 			mi_interfaz.boton7.setText(" ");
 			mi_interfaz.boton8.setText(" ");
+			mi_interfaz.turno.setText("X");
 		} else {
 			System.exit(0);
 		}
@@ -94,17 +95,26 @@ public class Controlador implements ActionListener {
 			mi_interfaz.boton6.setText(" ");
 			mi_interfaz.boton7.setText(" ");
 			mi_interfaz.boton8.setText(" ");
+			mi_interfaz.turno.setText("X");
 		}
 		if (resultado!='e') {
 			if(mi_juego.ganador(jugador)==true) {
-				JOptionPane.showMessageDialog(null,"El jugador "+jugador+" ha ganado");
+				if(jugador==1) { mi_interfaz.wins1++;}
+				else {mi_interfaz.wins2++;}
+				JOptionPane.showMessageDialog(null,"El jugador "+jugador+" ha ganado\nVictorias jugador 1 : "+String.valueOf(mi_interfaz.wins1)+"\nVictorias jugador 2 : "+String.valueOf(mi_interfaz.wins2)+"\nEmpates : "+String.valueOf(mi_interfaz.empates));
 				this.fin();
 			}else if(mi_juego.empate()==true) {
-				JOptionPane.showMessageDialog(null,"Empate");
+				mi_interfaz.empates++;
+				JOptionPane.showMessageDialog(null,"Empate"+"\nVictorias jugador 1 : "+String.valueOf(mi_interfaz.wins1)+"\nVictorias jugador 2 : "+String.valueOf(mi_interfaz.wins2)+"\nEmpates : "+String.valueOf(mi_interfaz.empates));
 				this.fin();
 			} else {
 				this.cambiarJugador(jugador);
 				mi_interfaz.setTitle("Turno del jugador : "+jugador);
+				if(jugador==1) {
+					mi_interfaz.turno.setText("X");
+				}else {
+					mi_interfaz.turno.setText("O");
+				}
 			}
 		}
 		

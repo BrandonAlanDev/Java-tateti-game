@@ -35,6 +35,9 @@ public class Interfaz extends JFrame {
 	public JLabel lblTurno;
 	public JLabel turno;
 	public JButton botonReset;
+	public int wins1 = 0;
+	public int wins2 = 0;
+	public int empates =0;
 
 	/**
 	 * Create the frame.
